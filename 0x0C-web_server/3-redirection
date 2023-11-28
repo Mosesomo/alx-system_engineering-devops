@@ -3,9 +3,20 @@
 
 REDIRECT_URL="https://docs.nginx.com/nginx/admin-guide/web-server/"
 	
-apt-get update
-apt-get install -y nginx
-ufw allow 'Ngnix HTTP'
-sudo echo 'Hello World!' | tee /var/www/html/index.html
-sudo sed -i "/listen 80 default_server/a rewrite ^/redirect_me $REDIRECT_URL 301;" /etc/nginx/sites-available/default
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Ngnix HTTP'
+echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html index.htm;
+
+    location /redirect_me {
+        rewrite ^/redirect_me $REDIRECT_URL permanent;
+    }
+}" | sudo tee /etc/nginx/sites-available/temp-config
+sudo ln -s /etc/nginx/sites-available/temp-config /etc/nginx/sites-enabled/
 service nginx restart
+
