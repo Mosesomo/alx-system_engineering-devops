@@ -5,7 +5,7 @@ REDIRECT_URL="https://docs.nginx.com/nginx/admin-guide/web-server/"
 	
 sudo apt-get update
 sudo apt-get install -y nginx
-sudo ufw allow 'Ngnix HTTP'
+sudo ufw allow 'Nginx HTTP'
 echo "server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -14,9 +14,9 @@ echo "server {
     index index.html index.htm;
 
     location /redirect_me {
-        rewrite ^/redirect_me $REDIRECT_URL permanent;
+        return 301 $REDIRECT_URL;
     }
-}" | sudo tee /etc/nginx/sites-available/temp-config
+}" | sudo tee /etc/nginx/sites-available/temp_config
 sudo ln -s /etc/nginx/sites-available/temp-config /etc/nginx/sites-enabled/
-service nginx restart
+sudo service nginx restart
 
