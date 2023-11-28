@@ -13,6 +13,8 @@ echo "server {
     root /var/www/html;
     index index.html index.htm;
 
+    server_name _;
+
     location /redirect_me {
         return 301 $REDIRECT_URL;
     }
