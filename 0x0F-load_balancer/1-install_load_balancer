@@ -3,8 +3,12 @@
 # Configure HAproxy so that it send traffic to web-01 and web-02
 # Distribute requests using a roundrobin algorithm
 
-sudo apt-get update
-sudo apt-get install -y haproxy
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:vbernat/haproxy-1.8
+sudo apt-get -y  update
+sudo apt-get install -y haproxy=1.8.\*
+
+echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
 echo "frontend  Mosesomo-frontend
 	      bind *:80
@@ -16,7 +20,6 @@ echo "frontend  Mosesomo-frontend
 	     server 308145-web-01 52.3.252.97:80 check
 	     server 308145-web-02 100.25.197.100:80 check" | sudo tee /etc/haproxy/haproxy.cfg
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
 sudo haproxy -c -f /etc/haproxy/haproxy.cfg
 sudo service haproxy restart
