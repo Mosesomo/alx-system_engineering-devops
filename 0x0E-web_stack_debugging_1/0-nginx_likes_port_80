@@ -2,10 +2,5 @@
 # Nginx must be running, and listening on port 80 of all the server’s active IPv4 IPs
 # script that configures a server to the above requirements
 
-sudo apt-get update
-sudo apt-get install -y nginx
-sudo ufw allow 22
-sudo ufw allow 'Nginx HTTP'
-
-sudo nginx -t
-sudo service nginx start
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
