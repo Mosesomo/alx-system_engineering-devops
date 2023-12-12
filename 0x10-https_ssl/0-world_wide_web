@@ -11,7 +11,7 @@ then
 	get_subdomain_info "$1" "www"
 	get_subdomain_info "$1" "lb-01"
 	get_subdomain_info "$1" "web-01"
-	get_subdomain_info "$1" "web-01"
+	get_subdomain_info "$1" "web-02"
 elif [ "$#" == 2 ]
 then
 	get_subdomain_info "$1" "$2"
