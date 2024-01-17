@@ -8,12 +8,13 @@ def top_ten(subreddit):
         titles of the first 10 hot posts listed for a given subreddit.
     """
 
-    info = requests.get("https://www.reddit.com/r/{}/hot.json?limit=10"
-                        .format(subreddit),
-                        headers={"User-Agent": "My-User-Agent"},
-                        allow_redirects=False)
-    if info.status_code >= 300:
-        print('None')
-    else:
-        [print(child.get("data").get("title"))
-         for child in info.json().get("data").get("children")]
+    url = "https://www.reddit.com/r/{}/hot.json?limit=10".format(subreddit)
+    headers = requests.utils.default_headers()
+    headers.update({'User-Agent': 'My User Agent 1.0'})
+
+    response = requests.get(url, headers=headers, allow_redirects=False).json()
+    top_ten = response.get('data', {}).get('children', [])
+    if not top_ten:
+        print("None")
+    for top in top_ten:
+        print(top.get('data').get('title'))
