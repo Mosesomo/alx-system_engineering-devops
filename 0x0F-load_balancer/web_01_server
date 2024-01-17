@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# logging into my serverr
+
+ssh -i ~/.ssh/id_rsa ubuntu@52.3.252.97
