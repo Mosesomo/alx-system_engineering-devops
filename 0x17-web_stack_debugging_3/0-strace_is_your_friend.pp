@@ -1,13 +1,7 @@
-# File: 0-strace_is_your_friend.pp
+# Fix 500 error when a GET http request is sent to the apache server
 
-file { '/etc/httpd/conf/httpd.conf':
-  ensure  => file,
-  content => template('path/to/httpd.conf.erb'),
-  notify  => Service['httpd'],
-}
 
-service { 'httpd':
-  ensure  => running,
-  enable  => true,
-  require => File['/etc/httpd/conf/httpd.conf'],
+exec {'replace':
+  provider => shell,
+  command  => 'sed -i "s/phpp/php/g" /var/www/html/wp-settings.php'
 }
