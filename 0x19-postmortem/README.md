@@ -1,5 +1,8 @@
 Postmortem Report: Web Stack Outage Incident
 
+![outage](https://github.com/Mosesomo/alx-system_engineering-devops/assets/107793010/4ba160f2-8859-4a16-8177-d6c634df9ea8)
+
+
 Issue Summary:
 
 .Duration of Outage:
