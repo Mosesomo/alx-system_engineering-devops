@@ -8,7 +8,6 @@ server {
         internal;
     }
 
-    # Server name should be the public IP or domain, not an IP address
     server_name 52.3.252.97;
 
     # Proxy configuration for /airbnb-onepage/
@@ -19,6 +18,12 @@ server {
     # Proxy configuration for /airbnb-dynamic/number_odd_or_even/
     location /airbnb-dynamic/number_odd_or_even/ {
         proxy_pass http://127.0.0.1:5001/;
+    }
+
+    # proxy configuration for /api/
+    location /api {
+	include proxy_params;
+	proxy_pass http://127.0.0.1:5002/api;
     }
 
     # Additional configuration for IPv6

@@ -10,8 +10,14 @@ server {
 
     server_name 52.3.252.97;
 
+    # Proxy configuration for /airbnb-onepage/
     location /airbnb-onepage/ {
-        proxy_pass http://127.0.0.1:5000/;  # Removed the extra path in proxy_pass
+        proxy_pass http://127.0.0.1:5000/;
+    }
+
+    # Proxy configuration for /airbnb-dynamic/number_odd_or_even/
+    location /airbnb-dynamic/number_odd_or_even/ {
+        proxy_pass http://127.0.0.1:5001/;
     }
 
     # Additional configuration for IPv6
