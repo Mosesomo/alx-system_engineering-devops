@@ -1,0 +1,57 @@
+server {
+    listen 80 default_server;
+
+    # Error page configuration
+    error_page 404 /404.html;
+    location = /404.html {
+        root /var/www/html;
+        internal;
+    }
+
+    # Server name should be the public IP or domain, not an IP address
+    server_name 52.3.252.97;
+
+    # Proxy configuration for /airbnb-onepage/
+    location /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/;
+    }
+
+    # Proxy configuration for /airbnb-dynamic/number_odd_or_even/
+    location /airbnb-dynamic/number_odd_or_even/ {
+        proxy_pass http://127.0.0.1:5001/;
+    }
+
+    # Additional configuration for IPv6
+    listen [::]:80 default_server;
+
+    # Root directory and index configuration
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    # Server name wildcard to catch all other requests
+    server_name _;
+
+    # Additional headers
+    add_header X-Served-By 308145-web-01;
+
+    # Static files configuration
+    location /hbnb_static {
+        alias /data/web_static/current/;
+        try_files $uri $uri/ =404;
+    }
+
+    # Redirect configuration
+    rewrite ^/redirect_me https://github.com/Mosesomo permanent;
+
+    # Error page for 404
+    error_page 404 /index_404.html;
+    location = /index_404.html {
+        internal;
+    }
+
+    # Redirect location configuration
+    location /redirect_me {
+        return 301 https://docs.nginx.com/nginx/admin-guide/web-server/;
+    }
+}
+
